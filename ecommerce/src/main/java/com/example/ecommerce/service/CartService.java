@@ -1,7 +1,7 @@
 package com.example.ecommerce.service;
 
-import com.example.ecommerce.entity.Cart;
-import com.example.ecommerce.repository.CartRepository;
+import com.example.ecommerce.entity.CartItem;
+import com.example.ecommerce.repository.CartItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,21 +9,21 @@ import java.util.List;
 @Service
 public class CartService {
 
-    private final CartRepository repo;
+    private final CartItemRepository repo;
 
-    public CartService(CartRepository repo) {
+    public CartService(CartItemRepository repo) {
         this.repo = repo;
     }
 
-    public Cart addToCart(Cart cart) {
-        return repo.save(cart);
+    public CartItem addToCart(CartItem item) {
+        return repo.save(item);
     }
 
-    public List<Cart> getCartItems() {
-        return repo.findAll();
+    public List<CartItem> getCart(String userId) {
+        return repo.findByUserId(userId);
     }
 
-    public void clearCart() {
-        repo.deleteAll();
+    public void clearCart(String userId) {
+        repo.deleteAll(repo.findByUserId(userId));
     }
 }

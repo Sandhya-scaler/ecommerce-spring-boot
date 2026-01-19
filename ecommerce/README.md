@@ -1,32 +1,33 @@
-# Ecommerce Backend Application (Spring Boot)
+# 🛒 Ecommerce Backend Application (Spring Boot)
 
-This project is a **Spring Boot based E-commerce Backend Application** developed as part of an academic assignment.
+This project is a **Spring Boot based Ecommerce Backend Application** developed for academic submission.
 
-The application demonstrates core backend concepts such as REST APIs, layered architecture, database interaction using JPA, and a complete order-to-payment flow using a **mock payment service**.
+It demonstrates how a basic ecommerce system works on the backend, including **products, cart, orders, and payments**, using a **mock payment flow** instead of a real payment gateway.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-- Java 17+
+- Java 17
 - Spring Boot
 - Spring Data JPA
 - Maven
 - H2 In-Memory Database
+- Postman (for API testing)
 
 ---
 
 ## ✨ Features Implemented
 
-- Product Management (Add and View Products)
-- Cart Functionality
+- Product Management (Create & View Products)
+- Cart Management (Add items to cart, view cart)
 - Order Creation
-- Mock Payment Processing
-- Payment Status Handling
+- Payment Processing (Mock Payment)
+- Order Status Update via Webhook
 - RESTful APIs
-- H2 Database Console for testing
+- H2 Database Console
 
-> Note: Payment is implemented using a **mock payment mechanism** for simplicity and academic purposes.
+> ⚠️ Payment is implemented using a **mock payment + webhook mechanism** (no Razorpay).
 
 ---
 
@@ -35,10 +36,36 @@ The application demonstrates core backend concepts such as REST APIs, layered ar
 com.example.ecommerce
 │
 ├── controller
+│ ├── ProductController
+│ ├── CartController
+│ ├── OrderController
+│ ├── PaymentController
+│ └── WebhookController
+│
 ├── service
+│ ├── ProductService
+│ ├── CartService
+│ ├── OrderService
+│ └── PaymentService
+│
 ├── repository
+│ ├── ProductRepository
+│ ├── CartRepository
+│ ├── OrderRepository
+│ └── PaymentRepository
+│
 ├── entity
+│ ├── Product
+│ ├── CartItem
+│ ├── OrderEntity
+│ ├── OrderItem
+│ ├── Payment
+│ └── User
+│
 ├── enums
+│ ├── OrderStatus
+│ └── PaymentStatus
+│
 └── EcommerceApplication.java
 
 yaml
@@ -48,32 +75,65 @@ Copy code
 
 ## 🚀 How to Run the Project
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-username>/ecommerce-spring-boot.git
-Open the project in IntelliJ IDEA or Eclipse
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/Sandhya-scaler/ecommerce.git
+2️⃣ Open in IDE
+Open the project in IntelliJ IDEA / Eclipse
 
-Run the application by executing:
+3️⃣ Run the Application
+Run:
 
 Copy code
 EcommerceApplication.java
-The application will start on:
-
+4️⃣ Server URL
 arduino
 Copy code
 http://localhost:8080
-🔗 API Endpoints
-Method	Endpoint	Description
-GET	/products	Get all products
-POST	/products	Add a new product
-GET	/cart	View cart items
-POST	/cart	Add item to cart
-POST	/orders	Create an order
-POST	/payment	Process mock payment
+🔗 API Testing (Postman)
+➤ Create Product
+POST /products
 
-🗄️ H2 Database Console
-You can view the in-memory database using the H2 console.
+json
+Copy code
+{
+  "name": "Laptop",
+  "description": "Gaming Laptop",
+  "price": 75000,
+  "stock": 5
+}
+➤ Get Products
+GET /products
 
+➤ Add Item to Cart
+POST /cart/add
+
+json
+Copy code
+{
+  "userId": 1,
+  "productId": 1,
+  "quantity": 1
+}
+➤ View Cart
+GET /cart/1
+
+➤ Create Order
+POST /orders/1
+
+➤ Create Payment (Mock)
+POST /payments/create?orderId=1
+
+➤ Payment Webhook (Mock Callback)
+POST /api/webhooks/payment
+
+json
+Copy code
+{
+  "orderId": 1,
+  "status": "SUCCESS"
+}
+🗄 H2 Database Console
 URL: http://localhost:8080/h2-console
 
 JDBC URL: jdbc:h2:mem:testdb
@@ -83,27 +143,27 @@ Username: sa
 Password: (leave empty)
 
 📌 Notes
-This project is a simplified implementation of an e-commerce backend.
+This is a simplified ecommerce backend
 
-Advanced features such as authentication, real payment gateway integration, and microservices are intentionally not included.
+Authentication, real payment gateways, and frontend are intentionally skipped
 
-The focus is on understanding backend flow and architecture.
+Focus is on backend flow and architecture
+
+Mock payment simulates real payment behaviour using webhook
+
+🧪 Demo & Testing
+APIs tested using Postman
+
+Demo video recorded showing:
+
+Product creation
+
+Cart flow
+
+Order creation
+
+Payment & webhook callback
 
 👩‍💻 Author
-Name: Your Name
-
-GitHub: https://github.com/<your-username>
-
-yaml
-Copy code
-
----
-
-
-
-
-
-
-
-
-
+Name: Sandhya
+GitHub: https://github.com/Sandhya-scaler

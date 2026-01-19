@@ -15,7 +15,8 @@ public class PaymentController {
     }
 
     @PostMapping
-    public Payment pay(@RequestParam Long orderId) {
-        return service.makePayment(orderId);
+    public Payment pay(@RequestParam Long orderId,
+                       @RequestParam double amount) {
+        return service.create(orderId, amount);
     }
 }

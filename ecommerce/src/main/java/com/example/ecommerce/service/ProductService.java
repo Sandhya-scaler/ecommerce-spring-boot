@@ -15,11 +15,11 @@ public class ProductService {
         this.repo = repo;
     }
 
-    public Product addProduct(Product product) {
-        return repo.save(product);
+    public Product save(Product p) {
+        return repo.save(p);
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAll() {
         return repo.findAll();
     }
 }

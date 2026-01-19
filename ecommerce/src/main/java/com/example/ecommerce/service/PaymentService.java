@@ -9,12 +9,19 @@ import org.springframework.stereotype.Service;
 public class PaymentService {
 
     private final PaymentRepository repo;
+    private final OrderService orderService;
 
-    public PaymentService(PaymentRepository repo) {
+    public PaymentService(PaymentRepository repo, OrderService orderService) {
         this.repo = repo;
+        this.orderService = orderService;
     }
 
-    public Payment makePayment(Long orderId) {
-        return repo.save(new Payment(orderId, PaymentStatus.SUCCESS));
+    public Payment create(Long orderId, double amount) {
+        Payment p = new Payment();
+        p.setOrderId(orderId);
+        p.setAmount(amount);
+        p.setStatus(PaymentStatus.SUCCESS);
+        orderService.markPaid(orderId);
+        return repo.save(p);
     }
 }

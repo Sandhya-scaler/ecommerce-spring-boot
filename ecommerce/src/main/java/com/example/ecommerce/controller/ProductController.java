@@ -17,12 +17,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        return service.addProduct(product);
+    public Product add(@RequestBody Product p) {
+        return service.save(p);
     }
 
     @GetMapping
-    public List<Product> getProducts() {
-        return service.getAllProducts();
+    public List<Product> all() {
+        return service.getAll();
     }
 }

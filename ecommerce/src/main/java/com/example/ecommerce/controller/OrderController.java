@@ -15,7 +15,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderEntity createOrder(@RequestParam double amount) {
-        return service.createOrder(amount);
+    public OrderEntity create(@RequestBody OrderEntity o) {
+        return service.create(o);
     }
 }

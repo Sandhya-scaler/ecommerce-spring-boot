@@ -1,6 +1,6 @@
 package com.example.ecommerce.controller;
 
-import com.example.ecommerce.entity.Cart;
+import com.example.ecommerce.entity.CartItem;
 import com.example.ecommerce.service.CartService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,12 @@ public class CartController {
     }
 
     @PostMapping
-    public Cart addToCart(@RequestBody Cart cart) {
-        return service.addToCart(cart);
+    public CartItem add(@RequestBody CartItem item) {
+        return service.addToCart(item);
     }
 
     @GetMapping
-    public List<Cart> viewCart() {
-        return service.getCartItems();
+    public List<CartItem> view(@RequestParam String userId) {
+        return service.getCart(userId);
     }
 }

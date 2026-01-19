@@ -14,13 +14,18 @@ public class OrderService {
         this.repo = repo;
     }
 
-    public OrderEntity createOrder(double amount) {
-        return repo.save(new OrderEntity(amount, OrderStatus.CREATED));
+    public OrderEntity create(OrderEntity order) {
+        order.setStatus(OrderStatus.CREATED);
+        return repo.save(order);
     }
 
-    public OrderEntity markOrderPaid(Long orderId) {
-        OrderEntity order = repo.findById(orderId).orElseThrow();
-        order.setStatus(OrderStatus.PAID);
-        return repo.save(order);
+    public OrderEntity get(Long id) {
+        return repo.findById(id).orElseThrow();
+    }
+
+    public void markPaid(Long id) {
+        OrderEntity o = get(id);
+        o.setStatus(OrderStatus.PAID);
+        repo.save(o);
     }
 }
